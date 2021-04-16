@@ -5,6 +5,6 @@
 
 ## Лабораторная №2
 ### Без мьютекса
-    cd lab2; spin -v main.pml; spin -a main.pml; gcc -o pan pan.c; ./pan -D | dot -T ps | ps2pdf - main.pdf
+    cd lab2; spin -v main.pml; spin -a -o3 main.pml; gcc -o pan pan.c; ./pan -D | dot -T ps | ps2pdf - main.pdf
 ### С мьютексом
-    cd lab2; spin -v main_mutex.pml; spin -a main_mutex.pml; gcc -o pan pan.c; ./pan -D | dot -T ps | ps2pdf - main_mutex.pdf
+    cd lab2; spin -v main_mutex.pml; spin -a -o3 main_mutex.pml; gcc -o pan pan.c; ./pan -D | dot -T ps | ps2pdf - main_mutex.pdf

@@ -4,7 +4,7 @@ int max_val = 10;
 proctype Worker()
 {
     do
-    ::  atomic { (val >= max_val) -> break; }
+    ::  (val >= max_val) -> break;
     ::  atomic { (val < max_val) -> val++; printf("Value is %d\n", val); }
     od
 }
