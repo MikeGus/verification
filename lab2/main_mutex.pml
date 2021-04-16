@@ -1,45 +1,17 @@
-bit semaphore = true;
 int val = 0;
+int max_val = 10;
 
-inline wait(sem)
-{
-    atomic {
-        sem -> sem = false
-    }
-}
-
-inline signal(sem) {
-    sem = true
-}
-
-proctype IncrementAndPrint()
-{
-    val = val + 1;
-    printf("Value is %d\n", val);
-}
-
-proctype WorkerA()
+proctype Worker()
 {
     do
-    ::  wait(semaphore);
-    ::  (val < 2) -> run IncrementAndPrint();
-    ::  (val >= 2) -> break;
-    ::  signal(semaphore);
+    ::  atomic { (val >= max_val) -> break; }
+    ::  atomic { (val < max_val) -> val++; printf("Value is %d\n", val); }
     od
 }
 
-proctype WorkerB()
-{
-    do
-    ::  wait(semaphore);
-    ::  (val < 2) -> run IncrementAndPrint();
-    ::  (val >= 2) -> break;
-    ::  signal(semaphore);
-    od
-}
 
 init
 {
-    run WorkerA();
-    run WorkerB();
+    run Worker();
+    run Worker();
 }

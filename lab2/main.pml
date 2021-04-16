@@ -1,29 +1,17 @@
 int val = 0;
+int max_val = 10;
 
-proctype IncrementAndPrint()
-{
-    val = val + 1;
-    printf("Value is %d\n", val);
-}
-
-proctype WorkerA()
+proctype Worker()
 {
     do
-    ::  (val < 2) -> run IncrementAndPrint();
-    ::  (val >= 2) -> break;
+    ::  (val >= max_val) -> break;
+    ::  (val < max_val) -> val++; printf("Value is %d\n", val);
     od
 }
 
-proctype WorkerB()
-{
-    do
-    ::  (val < 2) -> run IncrementAndPrint();
-    ::  (val >= 2) -> break;
-    od
-}
 
 init
 {
-    run WorkerA();
-    run WorkerB();
+    run Worker();
+    run Worker();
 }
